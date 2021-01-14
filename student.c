@@ -2,20 +2,33 @@
 #include <string.h>
 
 
+int getInputNumber(){
+  char input[256];
+  int num;
+  while (1){
+    fgets(input, 256, stdin);
+    if (sscanf(input, "%ud", &num) == 1 && num >= 0) break;
+    printf("Not a valid number try again");
+
+  }
+  return num;
+
+}
+
+
 // student structure
 //struct Student...
 struct Student {
-  char first[50];
-  char last[50];
-  int age;
-  int id;
+  char firstName[20];
+  char lastName[20];
+  unsigned int age;
+  long id;
 };
 
 void printStudent(struct Student* student)
 {
   printf("---- student ----\n");
-  printf("Student first name: %s\n", student->first);
-  printf("Student last name: %s\n", student->last);
+  printf("Student name: %s %s\n", student->firstName, student->lastName);
   printf("Age: %d\n", student->age);
   printf("id: %d", student->id);
 }
@@ -26,7 +39,7 @@ void printAllStudents(struct Student students[], int num)
   // call printStudent for each student in students
 
   for(int i=0; i<num; i++){
-    printStudent(students[i]);
+    printStudent(&students[i]);
 
   }
 }
@@ -34,10 +47,10 @@ void printAllStudents(struct Student students[], int num)
 
 int main()
 {
-
+  char input[256];
   // an array of students
   //xxx students;
-
+  struct Student students[10];
   int numStudents = 0;
   while (1)
   {
@@ -58,28 +71,17 @@ int main()
     else if (c == 'a')
     {
       // enter a new student
-      char input[256];
-      char first[50];
-      char last[50];
-      int age;
-      int id;
-      struct Student numStudents;
       printf("First name: \n");
       fgets(input, 256, stdin);
-      sscanf(input, "%s", first);
+      sscanf(input, "%s", students[numStudents].firstName);
       printf("Last name: \n");
       fgets(input, 256, stdin);
-      sscanf(input, "%s", last);
+      sscanf(input, "%s", students[numStudents].lastName);
       printf("Enter age: \n");
-      fgets(input, 256, stdin);
-      sscanf(input, "%d", &age);
+      students[numStudents].age = getInputNumber();
       printf("Enter id: \n");
-      fgets(input, 256, stdin);
-      sscanf(input, "%d", &id);
-      strcpy(numStudents.first, first);
-      strcpy(numStudents.last, last);
-      numStudents.age = age;
-      numStudents.id = id;
+      students[numStudents].id = getInputNumber();
+
 
 
       numStudents++;
