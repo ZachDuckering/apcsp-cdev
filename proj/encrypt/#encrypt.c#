@@ -2,6 +2,7 @@
 // encrypt.c
 //
 
+#include <stdio.h>
 #include <string.h>
 #include <math.h>
 
@@ -32,11 +33,11 @@ char shiftChar(char c, int shift, int direction)
     int pos = posptr - CHARS;
     if(direction == 1){
       return CHARS[(pos + shift) % CHARS_LEN];
-    }else {
+    }else if(direction == 0){
       return CHARS[(pos + CHARS_LEN - shift) % CHARS_LEN];
-    }
   }
-}
+
+  }
 
 
 void encrypt(char str[], int shifts[], int shiftslen)
@@ -64,7 +65,9 @@ void decrypt(char str[], int shifts[], int shiftslen)
 void caesarEncrypt(char str[], int shift)
 {
   int shifts[] = { shift };
+  printf("Plain Text: %s\n", str);
   encrypt(str, shifts, 1);
+  printf("Encrypted Text: %s\n", str);
 }
 
 
